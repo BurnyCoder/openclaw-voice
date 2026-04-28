@@ -1,0 +1,18 @@
+services:
+  openclaw:
+    image: ghcr.io/hostinger/hvps-openclaw:latest
+    init: true
+    env_file:
+      - .env
+    ports:
+      - "${PORT:-50918}:${PORT:-50918}"
+    labels:
+      - "traefik.enable=${TRAEFIK_ENABLE:-false}"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME:-openclaw}.rule=Host(`${COMPOSE_PROJECT_NAME:-openclaw}.${TRAEFIK_HOST:-example.com}`)"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME:-openclaw}.entrypoints=websecure"
+      - "traefik.http.routers.${COMPOSE_PROJECT_NAME:-openclaw}.tls.certresolver=letsencrypt"
+      - "traefik.http.services.${COMPOSE_PROJECT_NAME:-openclaw}.loadbalancer.server.port=${PORT:-50918}"
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+      - ./data/linuxbrew:/home/linuxbrew
