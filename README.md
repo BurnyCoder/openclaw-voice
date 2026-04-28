@@ -10,8 +10,6 @@ It preserves the important reproducible pieces:
 - Optional WhatsApp channel shape from the source setup.
 - Main OpenClaw workspace templates.
 
-It does not include live credentials, paired-device tokens, WhatsApp auth state, logs, SQLite memory, media files, or session data.
-
 ## 1. Requirements
 
 - Docker with Compose v2.
